@@ -9,6 +9,8 @@
         crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
     <title>Survey</title>
 </head>
@@ -176,7 +178,8 @@
         <footer class="page-footer font-small blue">
             <!-- Copyright -->
             <div class="footer-copyright text-center py-3">
-                <p><a href="/api/friends">API Friends List</a> |                          <a href="https://github.com/afhaque/friendfinder">GitHub Repo</a></p>
+                <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/afhaque/friendfinder">GitHub
+                        Repo</a></p>
                 © 2018 Copyright:
                 <a href="https://codigopelirrojo.com"> codigopelirrojo.com</a>
             </div>
@@ -184,6 +187,35 @@
         </footer>
         <!-- Footer -->
     </div>
+
+    <script type="text/javascript">
+        $("#submit").on("click", function (event) {
+            event.preventDefault();
+            var newPerson = {
+                name: $("#name").val().trim(),
+                photo: $("#photo").val().trim(),
+                scores: [
+                    $("#q1").val(),
+                    $("#q2").val(),
+                    $("#q3").val(),
+                    $("#q4").val(),
+                    $("#q5").val(),
+                    $("#q6").val(),
+                    $("#q7").val(),
+                    $("#q8").val(),
+                    $("#q9").val(),
+                    $("#q10").val()
+                ]
+            };
+
+            $.post("/api/friends", newPerson)
+                .then(function (data) {
+                    console.log(data);
+                    alert("done");
+                });
+        });
+    </script>
+
 </body>
 
 </html>
