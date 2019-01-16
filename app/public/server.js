@@ -36,7 +36,7 @@ var person = [
             "3",
             "2",
             "5",
-            "2",
+            "4",
             "5",
             "5"
         ]
@@ -57,16 +57,32 @@ app.get("/api/friends", function (req, res) {
 
 //Recibe datos del survey y los agrega al ojeto de person.
 app.post("/api/friends", function (req, res) {
-    
-    let newPerson = req.body;
-    let scores = newPerson.scores;
-    person.push(newPerson);
 
+    let newPerson = req.body;
+    let scores = newPerson.scores.map(Number);
+    var bestMatch = 50;
 
     for (let i = 0; i < person.length; i++) {
-        console.log(person[i].scores);
+
+        var actualPerson = person[i].scores.map(Number);
+        //da la diferencia entre el score de usario x con la de usuario nuevo
+        var difference = scores.map(function (item, index) {
+            return Math.abs(item - actualPerson[index]);
+        })
+
+        const add = (a, b) =>
+            a + b
+        // use reduce to sum our array
+        const totalDifference = difference.reduce(add)
+        // get the current best match
+        if (totalDifference < bestMatch) {
+            bestMatch = totalDifference;
+        }
+
+        console.log(bestMatch);
     }
 
+    person.push(newPerson);
     res.json(newPerson);
 });
 
