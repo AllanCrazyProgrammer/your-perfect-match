@@ -13,15 +13,15 @@ var person = [
         "photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
         "scores": [
             "5",
-            "1",
-            "4",
-            "4",
             "5",
-            "1",
+            "5",
+            "5",
+            "5",
+            "",
             "2",
-            "5",
-            "4",
-            "1"
+            "3",
+            "2",
+            "5"
         ]
     },
 
@@ -63,11 +63,11 @@ app.post("/api/friends", function (req, res) {
     var bestMatch = 50;
 
     for (let i = 0; i < person.length; i++) {
-
-        var actualPerson = person[i].scores.map(Number);
+        var actualPerson = person[i].name;
+        var actualPersonScore = person[i].scores.map(Number);
         //da la diferencia entre el score de usario x con la de usuario nuevo
         var difference = scores.map(function (item, index) {
-            return Math.abs(item - actualPerson[index]);
+            return Math.abs(item - actualPersonScore[index]);
         })
 
         const add = (a, b) =>
@@ -78,9 +78,9 @@ app.post("/api/friends", function (req, res) {
         if (totalDifference < bestMatch) {
             bestMatch = totalDifference;
         }
-
-        console.log(bestMatch);
     }
+    console.log(bestMatch);
+    console.log(actualPerson);
 
     person.push(newPerson);
     res.json(newPerson);
