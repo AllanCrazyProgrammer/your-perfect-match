@@ -2,7 +2,7 @@
   "name": "your-perfect-match",
   "version": "1.0.0",
   "description": "A dating match app",
-  "main": "index.js",
+  "main": "home.js",
   "dependencies": {
     "express": "^4.16.4"
   },
