@@ -10,14 +10,14 @@ app.use(express.json());
 var person = [
     {
         "name": "Ahmed",
-        "photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo": "https://eumostwanted.eu/sites/default/files/styles/wanted_medium/public/wanted_pictures/mohamad_ahmed_hassan_1.jpg?itok=G_1j3NM2",
         "scores": [
             "5",
             "5",
             "5",
             "5",
             "5",
-            "",
+            "5",
             "2",
             "3",
             "2",
@@ -26,8 +26,8 @@ var person = [
     },
 
     {
-        "name": "nadia",
-        "photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "name": "Nadia",
+        "photo": "https://avatars3.githubusercontent.com/u/1840802?s=460&v=4",
         "scores": [
             "1",
             "2",

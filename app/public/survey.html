@@ -118,7 +118,7 @@
                     <strong>Pregunta 7</strong>
                 </h3>
                 <hr>
-                <h4>Pones lana para las coperachas.</h4>
+                <h4>Te gusta el reggeton.</h4>
                 <select id="q7">
                     <option value></option>
                     <option value=1>1 (Desacuerdo)</option>
@@ -198,12 +198,17 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    ...
+                <div class="row">
+                    <div class="modal-body col">
+                        <h1 id="modalMatch"></h1>
+                    </div>
+                    <div class="modal-body col">
+                        <img id="modalImg" class="img-thumbnail" alt="perfect match photo">
+                    </div>
                 </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -237,10 +242,47 @@
 
             $.post("/api/friends", newPerson)
                 .then(function (data) {
-                    $('#myModal').modal('show');
-                    console.log()
-                    // alert("done");
+                    var newPersonScores = data.scores;
+
+                    $.get("/api/friends").then(function (persons) {
+                        let scores = newPersonScores.map(Number);
+                        var bestMatch = 50;
+
+                        for (let i = 0; i < persons.length - 1; i++) {
+                            var actualPerson = persons[i].name;
+                            var matchPhoto = persons[i].photo;
+                            var actualPersonScore = persons[i].scores.map(Number);
+
+                            //da la diferencia entre el score de usario x con la de usuario nuevo
+                            var difference = scores.map(function (item, index) {
+                                return Math.abs(item - actualPersonScore[index]);
+                            })
+
+                            const add = (a, b) =>
+                                a + b
+                            // use reduce to sum our array
+                            const totalDifference = difference.reduce(add)
+                            // get the current best match
+                            if (totalDifference < bestMatch) {
+                                bestMatch = totalDifference;
+                                actualPerson = persons[i].name;
+                                matchPhoto = persons[i].photo;
+                            }
+                            if (matchPhoto === "") {
+                                matchPhoto = "https://vignette.wikia.nocookie.net/blogclan-2/images/b/b9/Random-image-15.jpg/revision/latest?cb=20160706220047";
+                            }
+
+                        }
+                        $('#myModal').modal('show');
+                        $('#modalMatch').text(actualPerson);
+                        $("#modalImg").attr("src", matchPhoto);
+
+                        console.log(bestMatch);
+                        console.log(actualPerson);
+                        console.log(matchPhoto);
+                    })
                 });
+
         });
     </script>
 
